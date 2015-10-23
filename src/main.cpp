@@ -1,19 +1,39 @@
-// Set either COLORMODE or TEXTUREMODE
-#define TEXTUREMODE
+#include "cell.hpp"
 
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
 
 int main()
 {	
-	int WIDTH = 800;
-	int HEIGHT = 800;
-	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Game of life v0.00");
+	sf::Vector2i SCREEN(500, 500);
+	sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of life v0.00");
 	window.setFramerateLimit(60);
+	
+	int cellWidth = 10;		// Two .pngs in res/ are 10x10 pixels
+	
+	
+	while(window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		
+		window.clear();
+		
+		window.display();
+	}
+	
+	
+	
+	return EXIT_SUCCESS;
 
-	sf::CircleShape triangle(80, 3);
-	sf::CircleShape rectangle(80, 4);
-	sf::CircleShape pentagon(80, 5);
+/*	THIS CODE IS HERE JUST FOR REFERENCE
+	sf::CircleShape triangle(120, 3);
+	sf::CircleShape rectangle(120, 4);
+	sf::CircleShape pentagon(120, 5);
 
 	#ifdef TEXTUREMODE
 	sf::Texture woodTexture;
@@ -52,9 +72,9 @@ int main()
 				window.close();
 		}
 		
-		triangle.rotate(1);
-		rectangle.rotate(-1);
-		pentagon.rotate(1);
+		triangle.rotate(2);
+		rectangle.rotate(-2);
+		pentagon.rotate(2);
 		
 		
 		window.clear();
@@ -67,5 +87,6 @@ int main()
 	}
 	
 	return EXIT_SUCCESS;
+	*/
 }
 
