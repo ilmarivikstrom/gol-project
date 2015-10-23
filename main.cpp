@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main(){
-  sf::
-  return 0;
+	std::cout << "Runs." << std::endl;
+	return 0;
 }
 

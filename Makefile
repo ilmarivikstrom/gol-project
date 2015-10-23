@@ -1,4 +1,4 @@
-# Makefile for stuff. How c
+# Makefile for stuff
 
 all: main.o
 	g++ main.o -o gol -lsfml-graphics -lsfml-window -lsfml-system
