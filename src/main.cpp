@@ -3,16 +3,19 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <unistd.h>
 
 int main()
 {	
 	int WIDTH = 800;
 	int HEIGHT = 800;
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Game of life v0.00");
+	window.setFramerateLimit(60);
 
+	sf::CircleShape triangle(80, 3);
+	sf::CircleShape rectangle(80, 4);
+	sf::CircleShape pentagon(80, 5);
 
-	// Setting up different textures for different shapes
+	#ifdef TEXTUREMODE
 	sf::Texture woodTexture;
 	if(!woodTexture.loadFromFile("res/woodtexture.png"))
 		return 1;
@@ -25,21 +28,15 @@ int main()
 	if(!waterTexture.loadFromFile("res/watertexture.png"))
 		return 1;
 	
-	// Creating a triangle, a square and a pentagon
-	sf::CircleShape triangle(80, 3);
-	sf::CircleShape rectangle(80, 4);
-	sf::CircleShape pentagon(80, 5);
-	
-	#ifdef TEXTUREMODE
 	triangle.setTexture(&waterTexture);
 	rectangle.setTexture(&rockTexture);
 	pentagon.setTexture(&woodTexture);
 	#endif
 	
 	#ifdef COLORMODE
-	triangle.setFillColor(sf::Color(100, 100, 100));
+	triangle.setFillColor(sf::Color(75, 75, 75));
 	rectangle.setFillColor(sf::Color(150, 150, 150));
-	pentagon.setFillColor(sf::Color(200, 200, 200));
+	pentagon.setFillColor(sf::Color(225, 225, 225));
 	#endif
 	
 	triangle.setPosition(200, 200);
@@ -67,9 +64,8 @@ int main()
 		window.draw(pentagon);
 		
 		window.display();
-		usleep(10000);
 	}
 	
-	return 0;
+	return EXIT_SUCCESS;
 }
 
