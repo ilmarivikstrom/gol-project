@@ -1,5 +1,5 @@
 // Set either COLORMODE or TEXTUREMODE
-#define COLORMODE
+#define TEXTUREMODE
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -14,15 +14,15 @@ int main()
 
 	// Setting up different textures for different shapes
 	sf::Texture woodTexture;
-	if(!woodTexture.loadFromFile("woodtexture.png"))
+	if(!woodTexture.loadFromFile("res/woodtexture.png"))
 		return 1;
 		
 	sf::Texture rockTexture;
-	if(!rockTexture.loadFromFile("rocktexture.png"))
+	if(!rockTexture.loadFromFile("res/rocktexture.png"))
 		return 1;
 	
 	sf::Texture waterTexture;
-	if(!waterTexture.loadFromFile("watertexture.png"))
+	if(!waterTexture.loadFromFile("res/watertexture.png"))
 		return 1;
 	
 	// Creating a triangle, a square and a pentagon
@@ -30,7 +30,6 @@ int main()
 	sf::CircleShape rectangle(80, 4);
 	sf::CircleShape pentagon(80, 5);
 	
-	// Setting textures for shapes
 	#ifdef TEXTUREMODE
 	triangle.setTexture(&waterTexture);
 	rectangle.setTexture(&rockTexture);
