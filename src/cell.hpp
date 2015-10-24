@@ -19,7 +19,9 @@ class Cell	// Cell class declaration begins
 	private:
 		CellState state;
 		sf::Vector2i position;
-		sf::Texture texture;
+		sf::Texture aliveTexture;
+		sf::Texture deadTexture;
+		
 };
 
 
