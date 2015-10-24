@@ -1,7 +1,8 @@
 #include "cell.hpp"
 
 #include <iostream>
-#include <vector>
+
+// The gol window and all SFML stuff should be handled in a separate class and not in main
 
 int main()
 {	
@@ -11,7 +12,16 @@ int main()
 	
 	int cellWidth = 10;		// Two .pngs in res/ are 10x10 pixels
 	
+	// Just loading textures. This should happen in totally different class e.g. "gol_board.cpp"
+	sf::Texture aliveTexture;
+	if(!aliveTexture.loadFromFile("alive.png"))
+		return -1;
+	sf::Texture deadTexture;
+	if(!deadTexture.loadFromFile("dead.png"))
+		return -1;
 	
+	
+	// Gameloop implentation here in main or in some other file ("gameloop.cpp")?
 	while(window.isOpen())
 	{
 		sf::Event event;
