@@ -14,10 +14,10 @@ int main()
 	
 	// Just loading textures. This should happen in totally different class e.g. "gol_board.cpp"
 	sf::Texture aliveTexture;
-	if(!aliveTexture.loadFromFile("alive.png"))
+	if(!aliveTexture.loadFromFile("res/alive.png"))
 		return -1;
 	sf::Texture deadTexture;
-	if(!deadTexture.loadFromFile("dead.png"))
+	if(!deadTexture.loadFromFile("res/dead.png"))
 		return -1;
 	
 	
