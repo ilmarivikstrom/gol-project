@@ -49,7 +49,7 @@ int main()
 		}
 	}
 	
-	// Creating spriteVector which contains all the sprites in the right position
+	// Creating spriteVector which contains all the sprites in the right position. Sets all cells to deadTexture
 	std::vector<sf::Sprite> spriteVector;
 	for(auto i : spritePosVec){
 		sf::Sprite new_sprite;
@@ -71,6 +71,8 @@ int main()
 		}
 		
 		window.clear();
+		
+		// Displaying all the cells that are in the spriteVector
 		for(auto i : spriteVector){
 			window.draw(i);
 		}
