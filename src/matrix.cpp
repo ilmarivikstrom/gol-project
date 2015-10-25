@@ -6,9 +6,11 @@ Matrix::Matrix(int _ySize, int _xSize){
 	xSize = _xSize;
 	gol_matrix.clear();
 	for(int y = 0; y < ySize; y++){
+		std::vector<bool> row;
 		for(int x = 0; x < xSize; x++){
-			// Set cell [y][x] to false here somehow.
+			row.push_back(false);
 		}
+		gol_matrix.push_back(row);
 	}
 	
 }
