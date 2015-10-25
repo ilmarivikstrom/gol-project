@@ -1,27 +1,25 @@
-#include "cell.hpp"
+#define X_MATRIX_SIZE 50
+#define Y_MATRIX_SIZE 50
+#define CELLSIZE 10
+#define FPS 60
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
-
-// The gol window and all SFML stuff should be handled in a separate class and not in main
+#include "matrix.hpp"
 
 int main()
 {	
-	sf::Vector2i SCREEN(500, 500);
+	sf::Vector2i SCREEN(X_MATRIX_SIZE * CELLSIZE, Y_MATRIX_SIZE * CELLSIZE);
 	sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of life v0.00");
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(FPS);
 	
-	int cellWidth = 10;		// Two .pngs in res/ are 10x10 pixels
-	
-	// Just loading textures. This should happen in totally different class e.g. "gol_board.cpp"
-	sf::Texture aliveTexture;
-	if(!aliveTexture.loadFromFile("res/alive.png"))
-		return -1;
-	sf::Texture deadTexture;
-	if(!deadTexture.loadFromFile("res/dead.png"))
-		return -1;
+	std::cout << "LKLKLK" << std::endl;
+	Matrix matrix(Y_MATRIX_SIZE, X_MATRIX_SIZE);
+	std::cout << "JOULOU" << std::endl;
+	std::cout << matrix.getCellState(1, 1) << std::endl;
 	
 	
-	// Gameloop implentation here in main or in some other file ("gameloop.cpp")?
+	// Game loop
 	while(window.isOpen())
 	{
 		sf::Event event;
