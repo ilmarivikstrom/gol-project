@@ -5,7 +5,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <unistd.h>
-#include <iostream>
 #include "matrix.hpp"
 
 int main() {
