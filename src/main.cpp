@@ -1,7 +1,7 @@
 #define X_MATRIX_SIZE 50
 #define Y_MATRIX_SIZE 50
 #define CELLSIZE 10
-#define FPS 60
+#define FPS 5
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -13,20 +13,8 @@ int main() {
     window.setFramerateLimit(FPS);
 
     // Creating matrix object
-    Matrix matrix(Y_MATRIX_SIZE, X_MATRIX_SIZE);
-    std::cout << matrix.getCellState(1, 1) << std::endl;
-
-    // Testing member function setCellState
-    matrix.setCellState(1, 1, true);
-    std::cout << matrix.getCellState(1, 1) << std::endl;
-
-    // Testing member function clearMatrix
-    matrix.clearMatrix();
-    std::cout << matrix.getCellState(1, 1) << std::endl;
-
-    // Testing member function flipCellState
-    matrix.flipCellState(1, 1);
-    std::cout << matrix.getCellState(1, 1) << std::endl;
+    Matrix board(Y_MATRIX_SIZE, X_MATRIX_SIZE);
+    std::cout << board.getCellState(1, 1) << std::endl;
 
     // Loading textures
     sf::Texture aliveTexture;
@@ -47,18 +35,8 @@ int main() {
             spritePosVec.push_back(place);
         }
     }
-
-    // Creating spriteVector which contains all the sprites in the right position. Sets all cells to deadTexture
-    std::vector<sf::Sprite> spriteVector;
-    for (auto i : spritePosVec) {
-        sf::Sprite new_sprite;
-        new_sprite.setTexture(deadTexture);
-        new_sprite.setPosition(i.x, i.y);
-        spriteVector.push_back(new_sprite);
-    }
-
-
-
+    board.randomMatrix();
+    
     // Game loop
     while (window.isOpen()) {
         sf::Event event;
@@ -66,7 +44,22 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
+        
+        std::vector<sf::Sprite> spriteVector;
+        sf::Sprite sprite;
+        
+        for (auto i : spritePosVec){
+            if(board.getCellState(i.y / CELLSIZE, i.x / CELLSIZE) == false)
+                sprite.setTexture(deadTexture);
+            else
+                sprite.setTexture(aliveTexture);
+            sprite.setPosition(i.x, i.y);
+            
+            spriteVector.push_back(sprite);
+        }
+        
+        board.updateMatrix();
+        
         window.clear();
 
         // Displaying all the cells that are in the spriteVector

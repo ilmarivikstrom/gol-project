@@ -12,6 +12,7 @@ public:
     int getYSize() const;
     void setCellState(int y, int x, bool state);
     void flipCellState(int y, int x);
+    void randomMatrix();
     void updateMatrix();
     void clearMatrix();
     int countAdjacentCells(int y, int x);
