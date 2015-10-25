@@ -16,15 +16,19 @@ int main()
 	// Creating matrix object
 	Matrix matrix(Y_MATRIX_SIZE, X_MATRIX_SIZE);
 	std::cout << matrix.getCellState(1, 1) << std::endl;
+	
 	// Testing member function setCellState
 	matrix.setCellState(1, 1, true);
 	std::cout << matrix.getCellState(1, 1) << std::endl;
+	
 	// Testing member function clearMatrix
 	matrix.clearMatrix();
 	std::cout << matrix.getCellState(1, 1) << std::endl;
+	
 	//Testing member function flipCellState
 	matrix.flipCellState(1, 1);
 	std::cout << matrix.getCellState(1, 1) << std::endl;
+	
 	
 	
 	// Game loop
