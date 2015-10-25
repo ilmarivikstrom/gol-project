@@ -26,7 +26,7 @@ Matrix::Matrix(){
 	}
 }
 
-bool Matrix::getCellState(int x, int y) const{
+bool Matrix::getCellState(int y, int x) const{
 	return gol_matrix[y][x];
 }
 
@@ -38,11 +38,11 @@ int Matrix::getYSize() const{
 	return ySize;
 }
 
-void Matrix::setCellState(int x, int y, bool state){
+void Matrix::setCellState(int y, int x, bool state){
 	gol_matrix[y][x] = state;
 }
 
-void Matrix::flipCellState(int x, int y){
+void Matrix::flipCellState(int y, int x){
 	gol_matrix[y][x] = !gol_matrix[y][x];
 }
 

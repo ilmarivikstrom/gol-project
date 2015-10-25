@@ -25,9 +25,38 @@ int main()
 	matrix.clearMatrix();
 	std::cout << matrix.getCellState(1, 1) << std::endl;
 	
-	//Testing member function flipCellState
+	// Testing member function flipCellState
 	matrix.flipCellState(1, 1);
 	std::cout << matrix.getCellState(1, 1) << std::endl;
+	
+	// Loading textures
+	sf::Texture aliveTexture;
+	if(!aliveTexture.loadFromFile("res/alive.png"))
+		return -1;
+		
+	sf::Texture deadTexture;
+	if(!deadTexture.loadFromFile("res/dead.png"))
+		return -1;
+	
+	// Creating a vector that contains Vector2i data about sprite positions e.g. (0, 0), (O, 10),..., (490, 490)
+	std::vector<sf::Vector2i> spritePosVec;
+	for(int y = 0; y < Y_MATRIX_SIZE; y++){
+		for(int x = 0; x < X_MATRIX_SIZE; x++){
+			sf::Vector2i place;
+			place.y = y * CELLSIZE;
+			place.x = x * CELLSIZE;
+			spritePosVec.push_back(place);
+		}
+	}
+	
+	// Creating spriteVector which contains all the sprites in the right position
+	std::vector<sf::Sprite> spriteVector;
+	for(auto i : spritePosVec){
+		sf::Sprite new_sprite;
+		new_sprite.setTexture(deadTexture);
+		new_sprite.setPosition(i.x, i.y);
+		spriteVector.push_back(new_sprite);
+	}
 	
 	
 	
@@ -42,7 +71,9 @@ int main()
 		}
 		
 		window.clear();
-		
+		for(auto i : spriteVector){
+			window.draw(i);
+		}
 		window.display();
 	}
 	
