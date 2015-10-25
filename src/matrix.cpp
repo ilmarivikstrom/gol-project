@@ -1,5 +1,4 @@
 #include "matrix.hpp"
-#include <iostream>
 
 Matrix::Matrix(int _ySize, int _xSize){
 	ySize = _ySize;
@@ -61,6 +60,7 @@ void Matrix::clearMatrix(){
 
 int Matrix::countAdjacentCells(int x, int y){
 	// implement matrix iteration and finding the state of nearest cells logic here
+	return 0;
 }
 
 std::vector<std::vector<bool> > Matrix::getMatrix(){

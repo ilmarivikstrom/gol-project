@@ -10,7 +10,7 @@
 int main()
 {	
 	sf::Vector2i SCREEN(X_MATRIX_SIZE * CELLSIZE, Y_MATRIX_SIZE * CELLSIZE);
-	sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of life v0.00");
+	sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of life v0.01");
 	window.setFramerateLimit(FPS);
 	
 	// Creating matrix object
