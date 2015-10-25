@@ -11,6 +11,3 @@ clean:
 	rm -rf gol
 run:
 	./gol
-
-debug:
-	cd src; g++ -Wall --debug=a main.o matrix.o -o gol -lsfml-graphics -lsfml-window -lsfml-system; mv gol ../

@@ -4,17 +4,18 @@
 #define FPS 5
 
 #include <SFML/Graphics.hpp>
+#include <unistd.h>
 #include <iostream>
 #include "matrix.hpp"
 
 int main() {
     sf::Vector2i SCREEN(X_MATRIX_SIZE * CELLSIZE, Y_MATRIX_SIZE * CELLSIZE);
-    sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of life v0.01");
+    sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of Life v0.10. Author Ilmari Vikstroem");
+
     window.setFramerateLimit(FPS);
 
     // Creating matrix object
     Matrix board(Y_MATRIX_SIZE, X_MATRIX_SIZE);
-    std::cout << board.getCellState(1, 1) << std::endl;
 
     // Loading textures
     sf::Texture aliveTexture;
@@ -35,41 +36,44 @@ int main() {
             spritePosVec.push_back(place);
         }
     }
+
+    std::vector<sf::Sprite> spriteVector;
+    sf::Sprite sprite;
+
+
     board.randomMatrix();
-    
-    // Game loop
+
+    // **********Game loop**********
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        
-        std::vector<sf::Sprite> spriteVector;
-        sf::Sprite sprite;
-        
-        for (auto i : spritePosVec){
-            if(board.getCellState(i.y / CELLSIZE, i.x / CELLSIZE) == false)
+
+        for (auto i : spritePosVec) {
+            if (board.getCellState(i.y / CELLSIZE, i.x / CELLSIZE) == false)
                 sprite.setTexture(deadTexture);
             else
                 sprite.setTexture(aliveTexture);
             sprite.setPosition(i.x, i.y);
-            
+
             spriteVector.push_back(sprite);
         }
-        
+
         board.updateMatrix();
-        
+
         window.clear();
 
         // Displaying all the cells that are in the spriteVector
         for (auto i : spriteVector) {
             window.draw(i);
         }
+        spriteVector.clear();
+
         window.display();
+
     }
-
     return EXIT_SUCCESS;
-
 }
 
