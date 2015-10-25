@@ -59,7 +59,7 @@ void Matrix::clearMatrix(){
 	}
 }
 
-int Matrix::countAdjacentCells(int x, int y){
+void Matrix::countAdjacentCells(int x, int y){
 	// implement matrix iteration and finding the state of nearest cells logic here
 }
 

@@ -22,6 +22,9 @@ int main()
 	// Testing member function clearMatrix
 	matrix.clearMatrix();
 	std::cout << matrix.getCellState(1, 1) << std::endl;
+	//Testing member function flipCellState
+	matrix.flipCellState(1, 1);
+	std::cout << matrix.getCellState(1, 1) << std::endl;
 	
 	
 	// Game loop
