@@ -50,7 +50,7 @@ int main() {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
+        
         for (auto i : spritePosVec) {
             if (board.getCellState(i.y / CELLSIZE, i.x / CELLSIZE) == false)
                 sprite.setTexture(deadTexture);
