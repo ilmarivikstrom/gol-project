@@ -19,9 +19,11 @@ Matrix::Matrix(){
 	xSize = 50;
 	ySize = 50;
 	for(int y = 0; y < ySize; y++){
+		std::vector<bool> row;
 		for(int x = 0; x < xSize; x++){
-			// Set cell [y][x] to false here somehow.
+			row.push_back(false);
 		}
+		gol_matrix.push_back(row);
 	}
 }
 

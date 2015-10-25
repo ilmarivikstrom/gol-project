@@ -13,9 +13,10 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of life v0.00");
 	window.setFramerateLimit(FPS);
 	
-	std::cout << "LKLKLK" << std::endl;
+	// Creating matrix object and testing it
 	Matrix matrix(Y_MATRIX_SIZE, X_MATRIX_SIZE);
-	std::cout << "JOULOU" << std::endl;
+	std::cout << matrix.getCellState(1, 1) << std::endl;
+	matrix.setCellState(1, 1, true);
 	std::cout << matrix.getCellState(1, 1) << std::endl;
 	
 	
