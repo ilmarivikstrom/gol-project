@@ -13,13 +13,11 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(SCREEN.x, SCREEN.y), "Game of life v0.00");
 	window.setFramerateLimit(FPS);
 	
-	// Creating matrix object
+	// Creating matrix object and testing it
 	Matrix matrix(Y_MATRIX_SIZE, X_MATRIX_SIZE);
 	std::cout << matrix.getCellState(1, 1) << std::endl;
-	// Testing member function setCellState
 	matrix.setCellState(1, 1, true);
 	std::cout << matrix.getCellState(1, 1) << std::endl;
-	// Testing member function clearMatrix
 	matrix.clearMatrix();
 	std::cout << matrix.getCellState(1, 1) << std::endl;
 	

@@ -47,15 +47,19 @@ void Matrix::flipCellState(int x, int y){
 	gol_matrix[y][x] = !gol_matrix[y][x];
 }
 
-void updateMatrix(){
+void Matrix::updateMatrix(){
 	// implement matrix iteration and update logic here
 }
 
-void clearMatrix(){
-	// implement matrix iteration and setting to false logic here
+void Matrix::clearMatrix(){
+	for(int y = 0; y < ySize; y++){
+		for(int x = 0; x < xSize; x++){
+			gol_matrix[y][x] = false;
+		}
+	}
 }
 
-void countAdjacentCells(int x, int y){
+void Matrix::countAdjacentCells(int x, int y){
 	// implement matrix iteration and finding the state of nearest cells logic here
 }
 
