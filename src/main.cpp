@@ -1,7 +1,7 @@
-#define X_MATRIX_SIZE 50
-#define Y_MATRIX_SIZE 50
+#define X_MATRIX_SIZE 100
+#define Y_MATRIX_SIZE 100
 #define CELLSIZE 10
-#define FPS 5
+#define FPS 20
 
 #include <SFML/Graphics.hpp>
 #include <unistd.h>
