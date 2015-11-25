@@ -49,7 +49,7 @@ int main() {
       else
         sprite.setTexture(aliveTexture);
       sprite.setPosition(i.x, i.y);
-
+      
       spriteVector.push_back(sprite);
     }
 
