@@ -2,206 +2,221 @@
 #include "matrix.hpp"
 
 Matrix::Matrix(int _ySize, int _xSize) {
-    ySize = _ySize;
-    xSize = _xSize;
-    gol_matrix.clear();
-    for (int y = 0; y < ySize; y++) {
-        std::vector<bool> row;
-        for (int x = 0; x < xSize; x++) {
-            row.push_back(false);
-        }
-        gol_matrix.push_back(row);
+  ySize = _ySize;
+  xSize = _xSize;
+  gol_matrix.clear();
+  for (int y = 0; y < ySize; y++) {
+    std::vector<bool> row;
+    for (int x = 0; x < xSize; x++) {
+      row.push_back(false);
     }
+    gol_matrix.push_back(row);
+  }
 }
 
 Matrix::Matrix() {
-    xSize = 50;
-    ySize = 50;
-    for (int y = 0; y < ySize; y++) {
-        std::vector<bool> row;
-        for (int x = 0; x < xSize; x++) {
-            row.push_back(false);
-        }
-        gol_matrix.push_back(row);
+  xSize = 50;
+  ySize = 50;
+  for (int y = 0; y < ySize; y++) {
+    std::vector<bool> row;
+    for (int x = 0; x < xSize; x++) {
+      row.push_back(false);
     }
+    gol_matrix.push_back(row);
+  }
 }
 
 bool Matrix::getCellState(int y, int x) const {
-    return gol_matrix[y][x];
+  return gol_matrix[y][x];
 }
 
 int Matrix::getXSize() const {
-    return xSize;
+  return xSize;
 }
 
 int Matrix::getYSize() const {
-    return ySize;
+  return ySize;
 }
 
 void Matrix::setCellState(int y, int x, bool state) {
-    gol_matrix[y][x] = state;
+  gol_matrix[y][x] = state;
 }
 
-void Matrix::flipCellState(int y, int x) { // This is for click toggling
-    gol_matrix[y][x] = !gol_matrix[y][x];
+// This is for click toggling
+void Matrix::flipCellState(int y, int x) {
+  gol_matrix[y][x] = !gol_matrix[y][x];
 }
 
-void Matrix::randomMatrix() { // Creates a random matrix. rand() % x, 1/x is the probability of the cell to be alive
-    std::vector < std::vector<bool> > gol_matrix_new;
-    for (int y = 0; y < getYSize(); y++) {
-        std::vector<bool> row;
-        for (int x = 0; x < getXSize(); x++) {
-            int r = rand() % 6;
-            if (r == 1)
-                row.push_back(true);
-            else
-                row.push_back(false);
-        }
-        gol_matrix_new.push_back(row);
+// Creates a random matrix. rand() % x
+void Matrix::randomMatrix() {
+  std::vector < std::vector<bool> > gol_matrix_new;
+  for (int y = 0; y < getYSize(); y++) {
+    std::vector<bool> row;
+    for (int x = 0; x < getXSize(); x++) {
+      int r = rand() % 6;
+      if (r == 1)
+        row.push_back(true);
+      else
+        row.push_back(false);
     }
-    gol_matrix = gol_matrix_new;
+    gol_matrix_new.push_back(row);
+  }
+  gol_matrix = gol_matrix_new;
 }
 
 void Matrix::updateMatrix() {
-    std::vector < std::vector<bool> > gol_matrix_new;
-    for (int y = 0; y < getYSize(); y++) {
-        std::vector<bool> row;
-        for (int x = 0; x < getXSize(); x++) {
-            int count = countAdjacentCells(y, x); // get adjacent cells for determining the next generation
-            if (gol_matrix[y][x] == true) { // IF ALIVE                
-                if (count < 2) {
-                    row.push_back(false);
-                }
-                if (count == 2 || count == 3) {
-                    row.push_back(true);
-                }
-                if (count > 3) {
-                    row.push_back(false);
-                }
-            }
-            if (gol_matrix[y][x] == false) { // IF DEAD
-                if (count == 3)
-                    row.push_back(true);
-                else
-                    row.push_back(false);
-            }
+  std::vector < std::vector<bool> > gol_matrix_new;
+  for (int y = 0; y < getYSize(); y++) {
+    std::vector<bool> row;
+    for (int x = 0; x < getXSize(); x++) {
+      // get adjacent cells for determining the next generation
+      int count = countAdjacentCells(y, x);
+      // IF ALIVE
+      if (gol_matrix[y][x] == true) {
+        if (count < 2) {
+          row.push_back(false);
         }
-        gol_matrix_new.push_back(row);
+        if (count == 2 || count == 3) {
+          row.push_back(true);
+        }
+        if (count > 3) {
+          row.push_back(false);
+        }
+      }
+      // IF DEAD
+      if (gol_matrix[y][x] == false) {
+        if (count == 3)
+          row.push_back(true);
+        else
+          row.push_back(false);
+      }
     }
-    gol_matrix = gol_matrix_new;
+    gol_matrix_new.push_back(row);
+  }
+  gol_matrix = gol_matrix_new;
 }
 
 void Matrix::clearMatrix() {
-    for (int y = 0; y < ySize; y++) {
-        for (int x = 0; x < xSize; x++) {
-            gol_matrix[y][x] = false;
-        }
+  for (int y = 0; y < ySize; y++) {
+    for (int x = 0; x < xSize; x++) {
+      gol_matrix[y][x] = false;
     }
+  }
 }
 
-int Matrix::countAdjacentCells(int y, int x) { // Counts adjacent cells of (y, x)
-    int count = 0;
-    if (y == 0 && x == 0) { //UPPERLEFT
-        if (gol_matrix[y + 1][x] == true)
-            count++;
-        if (gol_matrix[y + 1][x + 1] == true)
-            count++;
-        if (gol_matrix[y][x + 1] == true)
-            count++;
-    } else if (y == this->getYSize() - 1 && x == this->getXSize() - 1) { //LOWERRIGHT
-        if (gol_matrix[y][x - 1] == true)
-            count++;
-        if (gol_matrix[y - 1][x - 1] == true)
-            count++;
-        if (gol_matrix[y - 1][x] == true)
-            count++;
-    } else if (y == this->getYSize() - 1 && x == 0) { //LOWERLEFT
-        if (gol_matrix[y - 1][x] == true)
-            count++;
-        if (gol_matrix[y - 1][x + 1] == true)
-            count++;
-        if (gol_matrix[y][x + 1] == true)
-            count++;
-    } else if (y == 0 && x == this->getXSize() - 1) { //UPPERRIGHT
-        if (gol_matrix[y][x - 1] == true)
-            count++;
-        if (gol_matrix[y + 1][x - 1] == true)
-            count++;
-        if (gol_matrix[y + 1][x] == true)
-            count++;
-    } else if (y == 0 && x != 0 && x != this->getXSize() - 1) { //IF FIRST LINE
-        if (gol_matrix[y][x - 1] == true)
-            count++;
-        if (gol_matrix[y][x + 1] == true)
-            count++;
-        if (gol_matrix[y + 1][x] == true)
-            count++;
-        if (gol_matrix[y + 1][x + 1] == true)
-            count++;
-        if (gol_matrix[y + 1][x - 1] == true)
-            count++;
-    } else if (y == this->getYSize() - 1 && x != 0 && x != this->getXSize() - 1) { //IF LAST LINE
-        if (gol_matrix[y][x - 1] == true)
-            count++;
-        if (gol_matrix[y][x + 1] == true)
-            count++;
-        if (gol_matrix[y - 1][x] == true)
-            count++;
-        if (gol_matrix[y - 1][x + 1] == true)
-            count++;
-        if (gol_matrix[y - 1][x - 1] == true)
-            count++;
-    } else if (x == 0 && y != 0 && y != this->getYSize() - 1) { //IF LEFT COLUMN
-        if (gol_matrix[y - 1][x] == true)
-            count++;
-        if (gol_matrix[y - 1][x + 1] == true)
-            count++;
-        if (gol_matrix[y][x + 1] == true)
-            count++;
-        if (gol_matrix[y + 1][x + 1] == true)
-            count++;
-        if (gol_matrix[y + 1][x] == true)
-            count++;
-    } else if (x == this->getXSize() - 1 && y != 0 && y != this->getYSize() - 1) { //IF RIGHT COLUMN
-        if (gol_matrix[y - 1][x] == true)
-            count++;
-        if (gol_matrix[y + 1][x] == true)
-            count++;
-        if (gol_matrix[y][x - 1] == true)
-            count++;
-        if (gol_matrix[y + 1][x - 1] == true)
-            count++;
-        if (gol_matrix[y - 1][x - 1] == true)
-            count++;
-    } else { //IF ANYTHING ELSE
-        if (gol_matrix[y][x - 1] == true) {
-            count++;
-        }
-        if (gol_matrix[y - 1][x - 1] == true) {
-            count++;
-        }
-        if (gol_matrix[y - 1][x] == true) {
-            count++;
-        }
-        if (gol_matrix[y - 1][x + 1] == true) {
-            count++;
-        }
-        if (gol_matrix[y][x + 1] == true) {
-            count++;
-        }
-        if (gol_matrix[y + 1][x + 1] == true) {
-            count++;
-        }
-        if (gol_matrix[y + 1][x] == true) {
-            count++;
-        }
-        if (gol_matrix[y + 1][x - 1] == true) {
-            count++;
-        }
+// Counts adjacent cells of (y, x)
+int Matrix::countAdjacentCells(int y, int x) {
+  int count = 0;
+  // UPPERLEFT
+  if (y == 0 && x == 0) {
+    if (gol_matrix[y + 1][x] == true)
+      count++;
+    if (gol_matrix[y + 1][x + 1] == true)
+      count++;
+    if (gol_matrix[y][x + 1] == true)
+      count++;
+    // LOWERRIGHT
+  } else if (y == this->getYSize() - 1 && x == this->getXSize() - 1) {
+    if (gol_matrix[y][x - 1] == true)
+      count++;
+    if (gol_matrix[y - 1][x - 1] == true)
+      count++;
+    if (gol_matrix[y - 1][x] == true)
+      count++;
+    // LOWERLEFT
+  } else if (y == this->getYSize() - 1 && x == 0) {
+    if (gol_matrix[y - 1][x] == true)
+      count++;
+    if (gol_matrix[y - 1][x + 1] == true)
+      count++;
+    if (gol_matrix[y][x + 1] == true)
+      count++;
+    // UPPERRIGHT
+  } else if (y == 0 && x == this->getXSize() - 1) {
+    if (gol_matrix[y][x - 1] == true)
+      count++;
+    if (gol_matrix[y + 1][x - 1] == true)
+      count++;
+    if (gol_matrix[y + 1][x] == true)
+      count++;
+    // IF FIRST LINE
+  } else if (y == 0 && x != 0 && x != this->getXSize() - 1) {
+    if (gol_matrix[y][x - 1] == true)
+      count++;
+    if (gol_matrix[y][x + 1] == true)
+      count++;
+    if (gol_matrix[y + 1][x] == true)
+      count++;
+    if (gol_matrix[y + 1][x + 1] == true)
+      count++;
+    if (gol_matrix[y + 1][x - 1] == true)
+      count++;
+    // IF LAST LINE
+  } else if (y == this->getYSize() - 1 && x != 0 && x != this->getXSize() - 1) {
+    if (gol_matrix[y][x - 1] == true)
+      count++;
+    if (gol_matrix[y][x + 1] == true)
+      count++;
+    if (gol_matrix[y - 1][x] == true)
+      count++;
+    if (gol_matrix[y - 1][x + 1] == true)
+      count++;
+    if (gol_matrix[y - 1][x - 1] == true)
+      count++;
+    // IF LEFT COLUMN
+  } else if (x == 0 && y != 0 && y != this->getYSize() - 1) {
+    if (gol_matrix[y - 1][x] == true)
+      count++;
+    if (gol_matrix[y - 1][x + 1] == true)
+      count++;
+    if (gol_matrix[y][x + 1] == true)
+      count++;
+    if (gol_matrix[y + 1][x + 1] == true)
+      count++;
+    if (gol_matrix[y + 1][x] == true)
+      count++;
+    // IF RIGHT COLUMN
+  } else if (x == this->getXSize() - 1 && y != 0 && y != this->getYSize() - 1) {
+    if (gol_matrix[y - 1][x] == true)
+      count++;
+    if (gol_matrix[y + 1][x] == true)
+      count++;
+    if (gol_matrix[y][x - 1] == true)
+      count++;
+    if (gol_matrix[y + 1][x - 1] == true)
+      count++;
+    if (gol_matrix[y - 1][x - 1] == true)
+      count++;
+    // IF ANYTHING ELSE
+  } else {
+    if (gol_matrix[y][x - 1] == true) {
+      count++;
     }
-    return count;
+    if (gol_matrix[y - 1][x - 1] == true) {
+      count++;
+    }
+    if (gol_matrix[y - 1][x] == true) {
+      count++;
+    }
+    if (gol_matrix[y - 1][x + 1] == true) {
+      count++;
+    }
+    if (gol_matrix[y][x + 1] == true) {
+      count++;
+    }
+    if (gol_matrix[y + 1][x + 1] == true) {
+      count++;
+    }
+    if (gol_matrix[y + 1][x] == true) {
+      count++;
+    }
+    if (gol_matrix[y + 1][x - 1] == true) {
+      count++;
+    }
+  }
+  return count;
 }
 
 std::vector<std::vector<bool> > Matrix::getMatrix() {
-    return gol_matrix;
+  return gol_matrix;
 }
